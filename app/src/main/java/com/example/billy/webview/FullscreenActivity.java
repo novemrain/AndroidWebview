@@ -1,4 +1,5 @@
 package com.example.billy.webview;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;
@@ -130,6 +131,15 @@ public class FullscreenActivity extends AppCompatActivity {
         // Schedule a runnable to remove the status and navigation bar after a delay
         mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) /*&& mWebView.canGoBack()*/) {
+            //mWebView.goBack();
+            //安卓返回键点击逻辑
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 //    @SuppressLint("InlinedApi")

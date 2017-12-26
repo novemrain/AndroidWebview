@@ -10,13 +10,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.os.Build;
+
+import ren.yale.android.cachewebviewlib.CacheWebView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
 public class FullscreenActivity extends AppCompatActivity {
-    private WebView webview;
+    private CacheWebView webview;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -93,17 +96,21 @@ public class FullscreenActivity extends AppCompatActivity {
 
 
         //实例化WebView对象
-        webview = new WebView(this);
+        webview = new CacheWebView(this);
         //设置WebView属性，能够执行Javascript脚本
         webview.getSettings().setJavaScriptEnabled(true);
         //加载需要显示的网页
-        webview.loadUrl("http://s10001.hlwh5.aoshitang.com/");
+        //String url = "http://s10001.hlwh5.aoshitang.com/";
+        String url = "http://gameplayh5.49you.com/html5_game.php?gid=257&sid=5420&cachewebview=true";
+        webview.loadUrl(url);
         //设置Web视图
         setContentView(webview);
 
         webview.getSettings().setUseWideViewPort(true);//将图片调整到适合webview的大小
         webview.getSettings().setLoadWithOverviewMode(true);// 缩放至屏幕的大小
-
+        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
         //应用运行时，保持屏幕高亮，不锁屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
